@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"><style>body{margin:0;background:#1c1f18;font-family:'IBM Plex Mono',ui-monospace,monospace}a{color:#3f5c2a}a:hover{color:#2b3f1c}*{-webkit-tap-highlight-color:transparent}input::placeholder{color:#4a5637}::-webkit-scrollbar{width:0;height:0}</style></helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:44px 20px;box-sizing:border-box;background:radial-gradient(120% 90% at 50% 0%,#2b3024 0%,#16180f 75%)">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+
+<div style="position:relative;height:874px;display:flex;flex-direction:column;background:#9db184;color:#2b3421;overflow:hidden">
+
+<div style="flex:none;padding:56px 14px 10px;background:#5c6b47;border-bottom:3px solid #38421f;display:flex;align-items:center;justify-content:space-between">
+<div style="display:flex;align-items:center;gap:9px">
+<div style="width:13px;height:13px;border-radius:99px;background:#c9d8ae;border:2px solid #38421f"></div>
+<div style="font:400 15px/1 Silkscreen,monospace;letter-spacing:.02em;color:#e8f0d6">SHINYDEX</div>
+</div>
+<div style="display:flex;align-items:center;gap:7px">
+<div style="padding:4px 7px;background:#38421f;font:400 9px/1 Silkscreen,monospace;color:#c9d8ae">GEN III</div>
+<div style="width:7px;height:7px;background:#c2d19f"></div>
+<div style="width:7px;height:7px;background:#7d8c62"></div>
+</div>
+</div>
+
+<div style="flex:1;min-height:0;position:relative">
+
+<sc-if value="{{ isHunts }}" hint-placeholder-val="{{ true }}">
+<div style="height:100%;overflow-y:auto">
+<div style="display:flex;border-bottom:3px solid #38421f">
+<div style="flex:1;padding:12px 10px;border-right:2px solid #7d8c62">
+<div style="font:700 22px/1 Silkscreen,monospace;color:#2b3421">{{ statHunts }}</div>
+<div style="margin-top:6px;font:400 9px/1 Silkscreen,monospace;color:#38421f">HUNTS</div>
+</div>
+<div style="flex:1.4;padding:12px 10px;border-right:2px solid #7d8c62">
+<div style="font:700 22px/1 Silkscreen,monospace;color:#2b3421">{{ statEnc }}</div>
+<div style="margin-top:6px;font:400 9px/1 Silkscreen,monospace;color:#38421f">ENCOUNTERS</div>
+</div>
+<div style="flex:1;padding:12px 10px">
+<div style="font:700 22px/1 Silkscreen,monospace;color:#7a5510">{{ statShiny }}</div>
+<div style="margin-top:6px;font:400 9px/1 Silkscreen,monospace;color:#4d3c10">SHINY</div>
+</div>
+</div>
+
+<div style="padding:14px 12px 6px;display:flex;align-items:center;justify-content:space-between">
+<div style="font:400 10px/1 Silkscreen,monospace;color:#38421f">IN PROGRESS</div>
+<div onClick="{{ goDex }}" style="padding:7px 10px;background:#5c6b47;border:2px solid #38421f;font:400 9px/1 Silkscreen,monospace;color:#e8f0d6;cursor:pointer" style-active="background:#4a5637">+ NEW</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;padding:6px 12px 16px">
+<sc-for list="{{ hunts }}" as="h" hint-placeholder-count="3">
+<div style="background:#adc092;border:3px solid #38421f;box-shadow:4px 4px 0 #6f7d5c">
+<div style="display:flex;align-items:stretch">
+<div onClick="{{ h.open }}" style="flex:1;min-width:0;padding:11px 12px;cursor:pointer;display:flex;gap:11px;align-items:center" style-active="background:#b8c9a0">
+<div style="width:52px;height:52px;flex:none;background:#c2d19f;border:2px solid #6f7d5c;background-image:url({{ h.sprite }});background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated"></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+<div style="font:400 13px/1 Silkscreen,monospace;color:#2b3421;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ h.name }}</div>
+<div style="font:500 10.5px/1.2 'IBM Plex Mono',monospace;color:#48553a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ h.line }}</div>
+<div style="display:flex;align-items:center;gap:7px">
+<div style="padding:3px 5px;background:#5c6b47;font:400 8px/1 Silkscreen,monospace;color:#dbe6c6">{{ h.game }}</div>
+<div style="font:500 10.5px/1 'IBM Plex Mono',monospace;color:#38421f">{{ h.timeStr }}</div>
+</div>
+</div>
+<div style="text-align:right;display:flex;flex-direction:column;gap:5px;flex:none">
+<div style="font:700 22px/1 Silkscreen,monospace;color:#2b3421;font-variant-numeric:tabular-nums">{{ h.countStr }}</div>
+<div style="font:500 10.5px/1 'IBM Plex Mono',monospace;color:#4d3c10">{{ h.pct }}</div>
+</div>
+</div>
+<div onClick="{{ h.inc }}" style="width:66px;flex:none;border-left:3px solid #38421f;background:#8fa06f;display:flex;align-items:center;justify-content:center;font:700 26px/1 Silkscreen,monospace;color:#2b3421;cursor:pointer;user-select:none" style-active="background:#75855a">+</div>
+</div>
+<div style="height:8px;border-top:3px solid #38421f;background:#c2d19f">
+<div style="height:100%;background:#7a5510;width:{{ h.oddsW }}"></div>
+</div>
+</div>
+</sc-for>
+</div>
+
+<sc-if value="{{ noHunts }}">
+<div style="margin:0 12px 16px;padding:26px 18px;border:3px dashed #6f7d5c;text-align:center">
+<div style="font:400 11px/1.6 Silkscreen,monospace;color:#38421f">NO ACTIVE HUNTS</div>
+<div style="margin-top:10px;font:500 11.5px/1.5 'IBM Plex Mono',monospace;color:#3c4830">Open the Dex and pick a target.</div>
+</div>
+</sc-if>
+<div style="height:8px"></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDex }}">
+<div style="height:100%;display:flex;flex-direction:column">
+<div style="flex:none;padding:12px;border-bottom:3px solid #38421f;display:flex;gap:8px">
+<div style="flex:1;display:flex;align-items:center;gap:8px;height:38px;padding:0 11px;background:#c2d19f;border:3px solid #38421f">
+<div style="width:9px;height:9px;border:2px solid #5c6b47;flex:none"></div>
+<input value="{{ q }}" onInput="{{ setQ }}" placeholder="SEARCH" style="flex:1;min-width:0;background:transparent;border:none;outline:none;color:#2b3421;font:400 11px/1 Silkscreen,monospace;text-transform:uppercase" />
+</div>
+<div onClick="{{ toggleCaught }}" style="width:74px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ caughtBg }};border:3px solid #38421f;font:400 9px/1 Silkscreen,monospace;color:{{ caughtFg }};cursor:pointer">SHINY</div>
+</div>
+<div style="flex:1;min-height:0;overflow-y:auto">
+<sc-for list="{{ dexRows }}" as="p" hint-placeholder-count="9">
+<div onClick="{{ p.open }}" style="display:flex;align-items:center;gap:11px;padding:9px 12px;border-bottom:2px solid #8ba070;cursor:pointer" style-active="background:#adc092">
+<div style="width:40px;flex:none;font:400 10px/1 Silkscreen,monospace;color:#38421f">{{ p.dexno }}</div>
+<div style="width:44px;height:44px;flex:none;background:#adc092;border:2px solid #8ba070;background-image:url({{ p.sprite }});background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated"></div>
+<div style="flex:1;min-width:0;font:400 12.5px/1.2 Silkscreen,monospace;color:#2b3421;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ p.name }}</div>
+<div style="font:400 10px/1 Silkscreen,monospace;color:#7a5510;flex:none">{{ p.mark }}</div>
+<div style="width:9px;height:9px;border-top:3px solid #5c6b47;border-right:3px solid #5c6b47;transform:rotate(45deg);flex:none;margin-right:4px"></div>
+</div>
+</sc-for>
+<sc-if value="{{ dexLoading }}">
+<div style="padding:30px;text-align:center;font:400 10.5px/1.6 Silkscreen,monospace;color:#38421f">{{ loadingLabel }}</div>
+</sc-if>
+<div style="height:10px"></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isLog }}">
+<div style="height:100%;overflow-y:auto">
+<div style="padding:14px 12px 8px;font:400 10px/1 Silkscreen,monospace;color:#38421f">SHINY LOG</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:0 12px 16px">
+<sc-for list="{{ log }}" as="e" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:11px;padding:11px 12px;background:#b9a06a;border:3px solid #38421f;box-shadow:4px 4px 0 #6f7d5c">
+<div style="width:52px;height:52px;flex:none;background:#d4c193;border:2px solid #7a5510;background-image:url({{ e.sprite }});background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated"></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+<div style="font:400 13px/1 Silkscreen,monospace;color:#2c2308;text-transform:uppercase">{{ e.name }}</div>
+<div style="font:500 10.5px/1.2 'IBM Plex Mono',monospace;color:#4d3c10">{{ e.line }}</div>
+</div>
+<div style="text-align:right;display:flex;flex-direction:column;gap:5px;flex:none">
+<div style="font:700 18px/1 Silkscreen,monospace;color:#2c2308">{{ e.countStr }}</div>
+<div style="font:500 10px/1 'IBM Plex Mono',monospace;color:#4d3c10">{{ e.date }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ noLog }}">
+<div style="margin:4px 12px;padding:26px 18px;border:3px dashed #6f7d5c;text-align:center;font:400 11px/1.6 Silkscreen,monospace;color:#38421f">NOTHING YET.<br>GO GRIND.</div>
+</sc-if>
+<div style="height:8px"></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ detailOpen }}">
+<div style="position:absolute;inset:0;background:#9db184;display:flex;flex-direction:column">
+<div style="flex:none;display:flex;align-items:center;gap:10px;padding:10px 12px;background:#5c6b47;border-bottom:3px solid #38421f">
+<div onClick="{{ closeDetail }}" style="padding:7px 10px;background:#38421f;font:400 9px/1 Silkscreen,monospace;color:#c9d8ae;cursor:pointer">&lt; BACK</div>
+<div style="flex:1;min-width:0;font:400 12px/1 Silkscreen,monospace;color:#e8f0d6;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ dName }}</div>
+<div style="font:400 10px/1 Silkscreen,monospace;color:#c9d8ae">{{ dNo }}</div>
+</div>
+<div style="flex:1;min-height:0;overflow-y:auto;padding:12px 12px 96px">
+<div style="display:flex;gap:12px;align-items:stretch">
+<div onClick="{{ toggleShiny }}" style="width:132px;flex:none;background:{{ spriteBg }};border:3px solid #38421f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:10px 6px;cursor:pointer">
+<div style="width:96px;height:96px;background-image:url({{ dSprite }});background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated"></div>
+<div style="font:400 8px/1 Silkscreen,monospace;color:{{ spriteFg }}">{{ spriteLabel }}</div>
+</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<sc-for list="{{ dTypes }}" as="t" hint-placeholder-count="2">
+<div style="padding:5px 8px;background:#5c6b47;font:400 9px/1 Silkscreen,monospace;color:#e8f0d6">{{ t.label }}</div>
+</sc-for>
+</div>
+<div style="font:500 11px/1.5 'IBM Plex Mono',monospace;color:#3c4830;text-wrap:pretty">{{ dBlurb }}</div>
+</div>
+</div>
+
+<div style="margin-top:16px;font:400 9px/1 Silkscreen,monospace;color:#38421f">BASE STATS</div>
+<div style="margin-top:9px;background:#adc092;border:3px solid #38421f;padding:10px 11px;display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ dStats }}" as="s" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;gap:9px">
+<div style="width:34px;flex:none;font:400 9.5px/1 Silkscreen,monospace;color:#38421f">{{ s.k }}</div>
+<div style="width:26px;flex:none;font:500 11px/1 'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;color:#2b3421">{{ s.v }}</div>
+<div style="flex:1;height:9px;background:#c2d19f;border:2px solid #6f7d5c">
+<div style="height:100%;background:#5c6b47;width:{{ s.w }}"></div>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top:16px;display:flex;gap:9px">
+<div style="flex:1;background:#adc092;border:3px solid #38421f;padding:10px">
+<div style="font:400 9px/1 Silkscreen,monospace;color:#38421f">ABILITIES</div>
+<div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">
+<sc-for list="{{ dAbil }}" as="a" hint-placeholder-count="2">
+<div style="font:500 11px/1.3 'IBM Plex Mono',monospace;color:#2b3421">{{ a.label }}</div>
+</sc-for>
+</div>
+</div>
+<div style="flex:1;background:#adc092;border:3px solid #38421f;padding:10px">
+<div style="font:400 9px/1 Silkscreen,monospace;color:#38421f">EGG GROUPS</div>
+<div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">
+<sc-for list="{{ dEgg }}" as="g" hint-placeholder-count="2">
+<div style="font:500 11px/1.3 'IBM Plex Mono',monospace;color:#2b3421">{{ g.label }}</div>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="margin-top:16px;font:400 9px/1 Silkscreen,monospace;color:#38421f">WHERE TO HUNT</div>
+<div style="margin-top:9px;display:flex;flex-direction:column;gap:7px">
+<sc-for list="{{ dLocs }}" as="l" hint-placeholder-count="3">
+<div onClick="{{ l.hunt }}" style="display:flex;align-items:center;gap:10px;padding:10px 11px;background:#adc092;border:3px solid #38421f;cursor:pointer" style-active="background:#b8c9a0">
+<div style="width:52px;flex:none;font:400 8.5px/1.4 Silkscreen,monospace;color:#38421f">{{ l.games }}</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+<div style="font:500 11.5px/1.3 'IBM Plex Mono',monospace;color:#2b3421">{{ l.where }}</div>
+<div style="font:500 10.5px/1.2 'IBM Plex Mono',monospace;color:#3c4830">{{ l.detail }}</div>
+</div>
+<div style="font:400 8px/1 Silkscreen,monospace;color:#7a5510;flex:none">HUNT</div>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ noLocs }}">
+<div style="margin-top:9px;padding:14px 12px;border:3px dashed #6f7d5c;font:500 11.5px/1.5 'IBM Plex Mono',monospace;color:#3c4830">{{ locsNote }}</div>
+</sc-if>
+
+<div style="margin-top:16px;font:400 9px/1 Silkscreen,monospace;color:#38421f">{{ movesLabel }}</div>
+<div style="margin-top:9px;background:#adc092;border:3px solid #38421f">
+<sc-for list="{{ dMoves }}" as="m" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-bottom:2px solid #8ba070">
+<div style="width:32px;flex:none;font:400 9.5px/1 Silkscreen,monospace;color:#38421f">{{ m.lv }}</div>
+<div style="flex:1;min-width:0;font:500 11px/1.2 'IBM Plex Mono',monospace;color:#2b3421">{{ m.name }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:0;padding:11px 12px 26px;background:#5c6b47;border-top:3px solid #38421f">
+<div onClick="{{ startHunt }}" style="height:50px;background:#c9a24e;border:3px solid #38421f;display:flex;align-items:center;justify-content:center;font:400 13px/1 Silkscreen,monospace;color:#2c2308;cursor:pointer;box-shadow:0 4px 0 #38421f" style-active="transform:translateY(3px);box-shadow:none">START HUNT</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ focusOpen }}">
+<div style="position:absolute;inset:0;background:#8fa06f;display:flex;flex-direction:column">
+<div style="flex:none;display:flex;align-items:center;gap:10px;padding:10px 12px;background:#5c6b47;border-bottom:3px solid #38421f">
+<div onClick="{{ closeFocus }}" style="padding:7px 10px;background:#38421f;font:400 9px/1 Silkscreen,monospace;color:#c9d8ae;cursor:pointer">&lt; HUNTS</div>
+<div style="flex:1;min-width:0;font:400 12px/1 Silkscreen,monospace;color:#e8f0d6;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ fName }}</div>
+<div onClick="{{ toggleRun }}" style="padding:7px 9px;background:#38421f;font:400 9px/1 Silkscreen,monospace;color:#c9d8ae;cursor:pointer">{{ runLabel }}</div>
+</div>
+
+<div onClick="{{ incFocus }}" style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;cursor:pointer;user-select:none;padding:0 20px" style-active="background:#98a978">
+<div style="width:104px;height:104px;background-image:url({{ fSprite }});background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated"></div>
+<div style="margin-top:10px;font:500 11px/1.4 'IBM Plex Mono',monospace;color:#3c4830;text-align:center">{{ fLine }}</div>
+<div style="margin-top:18px;font:700 92px/1 Silkscreen,monospace;color:#2b3421;font-variant-numeric:tabular-nums;letter-spacing:-.02em">{{ fCount }}</div>
+<div style="margin-top:8px;font:400 9px/1 Silkscreen,monospace;color:#38421f">ENCOUNTERS</div>
+<div style="margin-top:24px;width:100%;max-width:300px;height:12px;background:#c2d19f;border:3px solid #38421f">
+<div style="height:100%;background:#7a5510;width:{{ fOddsW }}"></div>
+</div>
+<div style="margin-top:9px;width:100%;max-width:300px;display:flex;justify-content:space-between;font:500 10.5px/1 'IBM Plex Mono',monospace;color:#38421f">
+<span>{{ fOddsL }}</span><span>{{ fTime }}</span>
+</div>
+<div style="margin-top:26px;font:400 9px/1 Silkscreen,monospace;color:#38421f">TAP ANYWHERE TO COUNT</div>
+</div>
+
+<div style="flex:none;display:flex;gap:9px;padding:11px 12px 26px;background:#5c6b47;border-top:3px solid #38421f">
+<div onClick="{{ undo }}" style="flex:1;height:48px;background:#adc092;border:3px solid #38421f;display:flex;align-items:center;justify-content:center;font:400 10px/1 Silkscreen,monospace;color:#2b3421;cursor:pointer;box-shadow:0 4px 0 #38421f" style-active="transform:translateY(3px);box-shadow:none">UNDO</div>
+<div onClick="{{ bump10 }}" style="flex:1;height:48px;background:#adc092;border:3px solid #38421f;display:flex;align-items:center;justify-content:center;font:400 10px/1 Silkscreen,monospace;color:#2b3421;cursor:pointer;box-shadow:0 4px 0 #38421f" style-active="transform:translateY(3px);box-shadow:none">+10</div>
+<div onClick="{{ found }}" style="flex:1.3;height:48px;background:#c9a24e;border:3px solid #38421f;display:flex;align-items:center;justify-content:center;font:400 11px/1 Silkscreen,monospace;color:#2c2308;cursor:pointer;box-shadow:0 4px 0 #38421f" style-active="transform:translateY(3px);box-shadow:none">SHINY!</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ celebrateOpen }}">
+<div onClick="{{ dismiss }}" style="position:absolute;inset:0;background:#c9a24e;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 26px;cursor:pointer">
+<div style="padding:14px;background:#d9b769;border:4px solid #38421f;box-shadow:8px 8px 0 #7a5510">
+<div style="width:128px;height:128px;background-image:url({{ cSprite }});background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated"></div>
+</div>
+<div style="margin-top:26px;font:400 12px/1 Silkscreen,monospace;letter-spacing:.14em;color:#4d3c10">SHINY FOUND</div>
+<div style="margin-top:12px;font:700 26px/1.2 Silkscreen,monospace;color:#2c2308;text-transform:uppercase;text-align:center">{{ cName }}</div>
+<div style="margin-top:16px;font:500 12px/1.6 'IBM Plex Mono',monospace;color:#4d3c10;text-align:center">{{ cLine }}</div>
+<div style="margin-top:30px;padding:12px 16px;background:#2c2308;font:400 10px/1 Silkscreen,monospace;color:#e8d9ac">LOG IT &amp; FINISH</div>
+</div>
+</sc-if>
+
+</div>
+
+<div style="flex:none;display:flex;gap:0;background:#5c6b47;border-top:3px solid #38421f;padding:0 0 22px">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+<div onClick="{{ t.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 0 10px;cursor:pointer;background:{{ t.bg }};border-right:2px solid #38421f">
+<div style="width:15px;height:15px;border:3px solid {{ t.fg }};background:{{ t.dot }}"></div>
+<div style="font:400 9px/1 Silkscreen,monospace;color:{{ t.fg }}">{{ t.label }}</div>
+</div>
+</sc-for>
+</div>
+
+</div>
+</x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:950},&quot;oddsDenominator&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:8192,&quot;tsType&quot;:&quot;number&quot;,&quot;options&quot;:[8192,4096,2048],&quot;section&quot;:&quot;Hunting&quot;},&quot;showCumulativeOdds&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hunting&quot;},&quot;dexRegion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;hoenn&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;hoenn&quot;,&quot;kanto&quot;,&quot;original-johto&quot;,&quot;national&quot;],&quot;section&quot;:&quot;Dex&quot;}}">
+const API = 'https://pokeapi.co/api/v2/';
+const SPRITE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+const SK = [['hp','HP'],['attack','ATK'],['defense','DEF'],['special-attack','SPA'],['special-defense','SPD'],['speed','SPE']];
+const cap = s => (s || '').split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+const GAMES = {ruby:'R',sapphire:'S',emerald:'E',firered:'FR',leafgreen:'LG','ruby-sapphire':'R S',emerald_:'E'};
+const SEED = [
+  {id:1, sid:280, name:'Ralts', game:'EMERALD', method:'Random encounter', route:'Route 102 · grass 1%', count:3184, seconds:9420, running:true},
+  {id:2, sid:349, name:'Feebas', game:'RUBY', method:'Fishing', route:'Route 119 · super rod', count:812, seconds:3600, running:false},
+  {id:3, sid:255, name:'Torchic', game:'EMERALD', method:'Soft reset', route:'Route 101 · gift', count:1476, seconds:5280, running:false}
+];
+const SEED_LOG = [
+  {sid:359, name:'Absol', line:'Route 120 · random encounter', count:11208, date:'AUG 28'},
+  {sid:371, name:'Bagon', line:'Meteor Falls · random encounter', count:4390, date:'AUG 09'},
+  {sid:258, name:'Mudkip', line:'Route 101 · soft reset', count:6742, date:'JUL 22'}
+];
+
+class Component extends DCLogic {
+  state = {
+    tab: 'hunts', hunts: SEED, log: SEED_LOG, focusId: null, celebrate: null,
+    q: '', onlyShiny: false, dex: [], dexLoading: true, dexErr: false,
+    detailId: null, detail: null, detailLoading: false, shinySprite: true
+  };
+
+  get denom() { return this.props.oddsDenominator ?? 8192; }
+
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      if (!this.state.hunts.some(h => h.running)) return;
+      this.setState(s => ({hunts: s.hunts.map(h => h.running ? {...h, seconds: h.seconds + 1} : h)}));
+    }, 1000);
+    this.loadDex();
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  async loadDex() {
+    const region = this.props.dexRegion ?? 'hoenn';
+    try {
+      const r = await fetch(API + 'pokedex/' + region);
+      const j = await r.json();
+      const dex = j.pokemon_entries.map(e => ({
+        no: e.entry_number,
+        species: e.pokemon_species.name,
+        name: cap(e.pokemon_species.name),
+        nid: Number(e.pokemon_species.url.split('/').filter(Boolean).pop())
+      }));
+      this.setState({dex, dexLoading: false});
+    } catch (e) { this.setState({dexLoading: false, dexErr: true}); }
+  }
+
+  async openDetail(row) {
+    this.setState({detailId: row.nid, detail: null, detailLoading: true, shinySprite: true});
+    try {
+      const [p, sp, enc] = await Promise.all([
+        fetch(API + 'pokemon/' + row.nid).then(r => r.json()),
+        fetch(API + 'pokemon-species/' + row.nid).then(r => r.json()),
+        fetch(API + 'pokemon/' + row.nid + '/encounters').then(r => r.json()).catch(() => [])
+      ]);
+      const ft = (sp.flavor_text_entries || []).find(f => f.language.name === 'en' && ['emerald','ruby','sapphire','firered'].includes(f.version.name))
+        || (sp.flavor_text_entries || []).find(f => f.language.name === 'en');
+      const gen3 = ['ruby','sapphire','emerald','firered','leafgreen'];
+      const locs = [];
+      (enc || []).forEach(e => {
+        const vs = (e.version_details || []).filter(v => gen3.includes(v.version.name));
+        if (!vs.length) return;
+        const games = vs.map(v => GAMES[v.version.name] || v.version.name.slice(0, 2).toUpperCase()).join(' ');
+        const best = vs[0].encounter_details || [];
+        const rate = Math.max(...best.map(d => d.chance || 0), 0);
+        const method = best.length ? cap(best[0].method.name) : '';
+        locs.push({
+          key: e.location_area.name + games,
+          games,
+          where: cap(e.location_area.name.replace(/-area$/, '')),
+          detail: [method, rate ? rate + '%' : ''].filter(Boolean).join(' · ')
+        });
+      });
+      const moves = (p.moves || []).map(m => {
+        const d = m.version_group_details.find(v => v.version_group.name === 'emerald' && v.move_learn_method.name === 'level-up');
+        return d ? {name: cap(m.move.name), lv: d.level_learned_at} : null;
+      }).filter(Boolean).sort((a, b) => a.lv - b.lv);
+      const spr = p.sprites.versions?.['generation-iii']?.emerald || {};
+      this.setState({detailLoading: false, detail: {
+        nid: row.nid, no: row.no, name: cap(p.name),
+        types: p.types.map(t => t.type.name.toUpperCase()),
+        stats: SK.map(([k, label]) => ({k: label, v: (p.stats.find(s => s.stat.name === k) || {}).base_stat || 0})),
+        abil: p.abilities.filter(a => !a.is_hidden).map(a => cap(a.ability.name)),
+        egg: (sp.egg_groups || []).map(g => cap(g.name)),
+        blurb: ft ? ft.flavor_text.replace(/[\n\f]/g, ' ') : '',
+        gender: sp.gender_rate,
+        normal: spr.front_default || p.sprites.front_default,
+        shiny: spr.front_shiny || p.sprites.front_shiny,
+        locs, moves
+      }});
+    } catch (e) { this.setState({detailLoading: false, detail: null}); }
+  }
+
+  spriteUrl(nid, shiny) { return SPRITE + (shiny ? 'shiny/' : '') + nid + '.png'; }
+  pct(n) { const p = (1 - Math.pow(1 - 1 / this.denom, n)) * 100; return (p < 10 ? p.toFixed(1) : Math.round(p)) + '%'; }
+  fmt(sec) { const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60); return h ? h + 'h ' + m + 'm' : m + 'm'; }
+
+  bump(id, by) {
+    this.setState(s => ({hunts: s.hunts.map(h => h.id === id ? {...h, count: Math.max(0, h.count + by)} : h)}));
+  }
+
+  renderVals() {
+    const s = this.state, showOdds = this.props.showCumulativeOdds ?? true;
+    const hunts = s.hunts.map(h => ({
+      ...h,
+      sprite: this.spriteUrl(h.sid, false),
+      line: h.method + ' · ' + h.route,
+      countStr: h.count.toLocaleString(),
+      timeStr: this.fmt(h.seconds) + (h.running ? ' ▸' : ' ❚❚'),
+      pct: showOdds ? this.pct(h.count) : '1/' + this.denom.toLocaleString(),
+      oddsW: Math.min(100, (1 - Math.pow(1 - 1 / this.denom, h.count)) * 100).toFixed(1) + '%',
+      open: () => this.setState({focusId: h.id}),
+      inc: () => this.bump(h.id, 1)
+    }));
+
+    const q = s.q.trim().toLowerCase();
+    const shinySids = new Set(s.log.map(e => e.sid));
+    const dexRows = s.dex
+      .filter(r => !q || r.name.toLowerCase().includes(q) || String(r.no).padStart(3, '0').includes(q))
+      .filter(r => !s.onlyShiny || shinySids.has(r.nid))
+      .map(r => ({
+        dexno: '#' + String(r.no).padStart(3, '0'),
+        name: r.name,
+        sprite: this.spriteUrl(r.nid, false),
+        mark: shinySids.has(r.nid) ? '★' : '',
+        open: () => this.openDetail(r)
+      }));
+
+    const d = s.detail;
+    const focus = s.hunts.find(h => h.id === s.focusId);
+    const c = s.celebrate;
+    const maxStat = d ? Math.max(...d.stats.map(x => x.v), 1) : 1;
+
+    const tab = k => ({
+      bg: s.tab === k ? '#38421f' : '#5c6b47',
+      fg: s.tab === k ? '#e8f0d6' : '#d2ddba',
+      dot: s.tab === k ? '#c9a24e' : 'transparent'
+    });
+
+    return {
+      isHunts: s.tab === 'hunts', isDex: s.tab === 'dex', isLog: s.tab === 'log',
+      noHunts: s.hunts.length === 0, noLog: s.log.length === 0,
+      goDex: () => this.setState({tab: 'dex'}),
+      tabs: [
+        {label: 'HUNTS', ...tab('hunts'), go: () => this.setState({tab: 'hunts'})},
+        {label: 'DEX', ...tab('dex'), go: () => this.setState({tab: 'dex'})},
+        {label: 'LOG', ...tab('log'), go: () => this.setState({tab: 'log'})}
+      ],
+      statHunts: String(s.hunts.length),
+      statEnc: s.hunts.reduce((a, h) => a + h.count, 0).toLocaleString(),
+      statShiny: String(s.log.length),
+      hunts,
+      log: s.log.map(e => ({...e, sprite: this.spriteUrl(e.sid, true), countStr: e.count.toLocaleString()})),
+
+      q: s.q,
+      setQ: e => this.setState({q: e.target.value}),
+      onlyShiny: s.onlyShiny,
+      toggleCaught: () => this.setState({onlyShiny: !s.onlyShiny}),
+      caughtBg: s.onlyShiny ? '#c9a24e' : '#c2d19f',
+      caughtFg: s.onlyShiny ? '#2c2308' : '#5c6b47',
+      dexRows,
+      dexLoading: s.dexLoading || (!s.dexLoading && dexRows.length === 0),
+      loadingLabel: s.dexErr ? 'OFFLINE — NO DEX DATA' : (s.dexLoading ? 'LOADING DEX…' : 'NO MATCHES'),
+
+      detailOpen: !!s.detailId,
+      closeDetail: () => this.setState({detailId: null, detail: null}),
+      dName: d ? d.name : (s.detailLoading ? 'LOADING…' : ''),
+      dNo: d ? '#' + String(d.no).padStart(3, '0') : '',
+      dSprite: d ? (s.shinySprite ? d.shiny : d.normal) : this.spriteUrl(s.detailId || 1, s.shinySprite),
+      spriteBg: s.shinySprite ? '#c9a24e' : '#adc092',
+      spriteFg: s.shinySprite ? '#2c2308' : '#48553a',
+      spriteLabel: s.shinySprite ? 'SHINY ▸ TAP' : 'NORMAL ▸ TAP',
+      toggleShiny: () => this.setState({shinySprite: !s.shinySprite}),
+      dTypes: d ? d.types.map(t => ({label: t})) : [],
+      dBlurb: d ? d.blurb : 'Fetching entry from PokéAPI…',
+      dStats: d ? d.stats.map(x => ({k: x.k, v: String(x.v), w: Math.round(x.v / maxStat * 100) + '%'})) : [],
+      dAbil: d ? d.abil.map(a => ({label: a})) : [],
+      dEgg: d ? (d.egg.length ? d.egg.map(g => ({label: g})) : [{label: '—'}]) : [],
+      dLocs: d ? d.locs.map(l => ({...l, hunt: () => this.addHunt(d, l)})) : [],
+      noLocs: !!d && d.locs.length === 0,
+      locsNote: 'No wild Gen 3 encounters. Gift, static, trade or breeding only — soft-reset or hatch.',
+      movesLabel: d && d.moves.length ? 'EMERALD LEVEL-UP MOVES' : 'MOVES',
+      dMoves: d ? d.moves.map(m => ({lv: 'L' + m.lv, name: m.name})) : [],
+      startHunt: () => d && this.addHunt(d, d.locs[0]),
+
+      focusOpen: !!focus,
+      closeFocus: () => this.setState({focusId: null}),
+      fName: focus ? focus.name : '',
+      fSprite: focus ? this.spriteUrl(focus.sid, false) : '',
+      fLine: focus ? focus.method + ' · ' + focus.route + ' · ' + focus.game : '',
+      fCount: focus ? focus.count.toLocaleString() : '0',
+      fOddsW: focus ? Math.min(100, (1 - Math.pow(1 - 1 / this.denom, focus.count)) * 100).toFixed(1) + '%' : '0%',
+      fOddsL: focus ? this.pct(focus.count) + ' cumulative · 1/' + this.denom.toLocaleString() : '',
+      fTime: focus ? this.fmt(focus.seconds) : '',
+      runLabel: focus && focus.running ? 'PAUSE' : 'RESUME',
+      toggleRun: () => focus && this.setState(st => ({hunts: st.hunts.map(h => h.id === focus.id ? {...h, running: !h.running} : h)})),
+      incFocus: () => focus && this.bump(focus.id, 1),
+      bump10: () => focus && this.bump(focus.id, 10),
+      undo: () => focus && this.bump(focus.id, -1),
+      found: () => focus && this.setState({celebrate: focus}),
+
+      celebrateOpen: !!c,
+      cSprite: c ? this.spriteUrl(c.sid, true) : '',
+      cName: c ? c.name : '',
+      cLine: c ? c.count.toLocaleString() + ' encounters · ' + this.fmt(c.seconds) + ' · ' + this.pct(c.count) + ' luck' : '',
+      dismiss: () => this.setState(st => ({
+        celebrate: null, focusId: null, tab: 'log',
+        hunts: st.hunts.filter(h => h.id !== c.id),
+        log: [{sid: c.sid, name: c.name, line: c.method + ' · ' + c.route, count: c.count, date: 'TODAY'}, ...st.log]
+      }))
+    };
+  }
+
+  addHunt(d, loc) {
+    const id = Date.now();
+    this.setState(s => ({
+      detailId: null, detail: null, tab: 'hunts', focusId: id,
+      hunts: [{
+        id, sid: d.nid, name: d.name, game: 'EMERALD',
+        method: loc ? (loc.detail.split(' · ')[0] || 'Encounter') : 'Soft reset',
+        route: loc ? loc.where : 'Gift · reset',
+        count: 0, seconds: 0, running: true
+      }, ...s.hunts]
+    }));
+  }
+}
+</script>
+</body>
+</html>
